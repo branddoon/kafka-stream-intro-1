@@ -39,11 +39,7 @@ public class StreamsStarterApp {
 
     wordCounts
     .toStream()
-    .peek((key, value) -> logger.debug("Word: {} | Count: {}", key, value))
-    .to("word-count-output", Produced.with(Serdes.String(), Serdes.Long()));
-
-    wordCounts
-    .toStream()
+    .peek((key, value) -> logger.info("Word: {} | Count: {}", key, value))
     .to("word-count-output", Produced.with(Serdes.String(), Serdes.Long()));
 
     KafkaStreams streams = new KafkaStreams(builder.build(), properties);

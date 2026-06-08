@@ -4,7 +4,7 @@
 ### Execute command for create topic with replication factor and partition number
 docker exec -it kafka kafka-topics \
 --bootstrap-server localhost:9092 \
---create --topic word-count-output \
+--create --topic word-count-input \
 --replication-factor 1 \
 --partitions 1
 
@@ -21,17 +21,8 @@ docker exec -it kafka kafka-console-consumer \
 --topic word-count-output
 --from-beginning \
 --property print.key=true \
+--property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
 --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
-
-
-#### All messages
---from-beginning
-#### With key for partitioning
---property "key.separator=-" --property "parse.key=true"
-#### With group id
---group group-course-1
-#### With headers 
---property "print.headers=true" --property "print.timestamp=true" 
 
 ## Another commands for Kafka cluster
 ### List topics
